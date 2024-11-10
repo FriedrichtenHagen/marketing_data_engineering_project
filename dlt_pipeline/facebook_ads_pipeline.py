@@ -17,7 +17,11 @@ def load_all_ads_objects() -> None:
         dataset_name="facebook_ads_data",
         dev_mode=True,
     )
-    info = pipeline.run(facebook_ads_source())
+    # select all resources except for leads
+    fb_ads_source = facebook_ads_source(
+        chunk_size=25,
+    ).with_resources("campaigns", "ad_sets", "ads", "ad_creatives")
+    info = pipeline.run(fb_ads_source)
     print(info)
 
 
@@ -118,8 +122,8 @@ def load_insights() -> None:
 
 
 if __name__ == "__main__":
-    # load_all_ads_objects()
-    merge_ads_objects()
+    load_all_ads_objects()
+    # merge_ads_objects()
     # load_ads_with_custom_fields()
     # load_only_disapproved_ads()
     # load_and_enrich_objects()
