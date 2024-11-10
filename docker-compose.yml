@@ -1,21 +1,9 @@
-version: '3'
 services:
-  airflow-webserver:
+  my_dlt_project:
     build: .
-    ports:
-      - "8080:8080"
-    environment:
-      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
     volumes:
-      - ./dags:/opt/airflow/dags
-      - ./dlt_pipeline:/opt/airflow/dlt_pipeline
-      - ./dbt:/opt/airflow/dbt
-  airflow-scheduler:
-    build: .
-    depends_on:
-      - airflow-webserver
-    volumes:
-      - ./dags:/opt/airflow/dags
-      - ./dlt_pipeline:/opt/airflow/dlt_pipeline
-      - ./dbt:/opt/airflow/dbt
-    command: ["airflow", "scheduler"]
+      - ./dlt_pipeline:/app/dlt_pipeline
+    working_dir: /app/dlt_pipeline
+    command: /bin/bash
+    stdin_open: true
+    tty: true
