@@ -1,4 +1,10 @@
 import dlt
+import os
+
+
+# Set PROGRESS to log
+os.environ["PROGRESS"] = "log"
+
 
 from facebook_ads import (
     facebook_ads_source,
@@ -15,7 +21,6 @@ def load_all_ads_objects() -> None:
         pipeline_name="facebook_ads",
         destination='duckdb',
         dataset_name="facebook_ads_data",
-        dev_mode=True,
     )
     # select all resources except for leads
     fb_ads_source = facebook_ads_source(
