@@ -217,7 +217,8 @@ def get_ads_account(
         raise_for_status=False,
         retry_condition=retry_on_limit,
         request_max_attempts=12,
-        request_backoff_factor=2,
+        request_backoff_factor=8,
+        request_max_retry_delay=600 # 10min is enough?
     ).session
     retry_session.params.update({"access_token": access_token})  # type: ignore
     # patch dlt requests session with retries
