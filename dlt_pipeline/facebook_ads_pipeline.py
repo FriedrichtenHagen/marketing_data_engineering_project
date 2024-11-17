@@ -1,4 +1,7 @@
 import dlt
+import os
+# Set PROGRESS to log
+os.environ["PROGRESS"] = "log"
 
 from facebook_ads import (
     facebook_ads_source,
