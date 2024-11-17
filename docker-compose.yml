@@ -4,6 +4,10 @@ services:
     volumes:
       - ./dlt_pipeline:/app/dlt_pipeline
     working_dir: /app/dlt_pipeline
-    command: /bin/bash
+    environment:
+      - DLT_HOME=/app/dlt_pipeline/  # Make sure dlt's data is stored within the container
+    command: /bin/bash -c "/bin/bash"
+    ports:
+      - "8501:8501"  # Maps port 8501 in the container to port 8501 on your laptop
     stdin_open: true
     tty: true
