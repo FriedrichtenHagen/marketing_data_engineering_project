@@ -1,9 +1,10 @@
 ## TODO
 dlt: data extraction
 
+- set the location of the pipeline meta files before running the pipeline
+  - find the docs for that
+- make sure the duckdb files are in a folder
 - handle api limits: https://stackoverflow.com/questions/34160992/fb-ads-api-17-user-request-limit-reached
-- figure out correct chunk size?
-- make sure duckdb file is mounted?
 
 dbt: transformation
 
