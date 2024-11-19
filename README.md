@@ -1,3 +1,5 @@
+A data engineering proof of concept project. Goal is to enable elt for a marketing data warehouse using open source software.
+
 ## TODO
 dlt: data extraction
 

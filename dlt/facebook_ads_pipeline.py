@@ -12,11 +12,11 @@ from facebook_ads import (
 def load_all_ads_objects() -> None:
     """Loads campaigns, ad sets, ads, ad creatives and leads"""
     pipeline = dlt.pipeline(
-        pipeline_name="facebook_ads",
+        pipeline_name="facebook_ads_pipeline",
         destination='duckdb',
-        dataset_name="facebook_ads_data",
+        dataset_name="facebook_ads_objects",
     )
-    # select all resources except for leads
+    # these are the dimensions of the facebook data model
     fb_ads_source = facebook_ads_source(
         chunk_size=25,
     ).with_resources("campaigns", "ad_sets", "ads", "ad_creatives")
@@ -49,7 +49,6 @@ def merge_ads_objects() -> None:
         with c.execute_query("SELECT id, name, effective_status FROM ads") as q:
             print(q.df())
 
-
 def load_ads_with_custom_fields() -> None:
     """Shows how to change the fields loaded for a particular object"""
     pipeline = dlt.pipeline(
@@ -63,7 +62,6 @@ def load_ads_with_custom_fields() -> None:
     fb_ads.ads.bind(fields=("id",))
     info = pipeline.run(fb_ads.with_resources("ads"))
     print(info)
-
 
 def load_only_disapproved_ads() -> None:
     """Shows how to load objects with a given statuses"""
@@ -80,7 +78,6 @@ def load_only_disapproved_ads() -> None:
     )  # states=("DISAPPROVED", "PAUSED") for many states
     info = pipeline.run(fb_ads.with_resources("ads"))
     print(info)
-
 
 def load_and_enrich_objects() -> None:
     """Show how to enrich objects by adding an enrichment transformation that adds fields to objects
@@ -108,20 +105,23 @@ def load_and_enrich_objects() -> None:
 def load_insights() -> None:
     """Shows how to load daily and weekly insights with 7 days attribution window"""
     pipeline = dlt.pipeline(
-        pipeline_name="facebook_insights",
+        pipeline_name="facebook_insights_pipeline",
         destination='duckdb',
-        dataset_name="facebook_insights_data",
+        dataset_name="facebook_insights",
     )
     # just load 1 past day with attribution window of 7 days - that will re-acquire last 8 days + today
-    i_daily = facebook_insights_source(initial_load_past_days=1)
+    i_daily = facebook_insights_source(
+        initial_load_past_days=1,
+        action_breakdowns="action_type", # check my pr for better implementation
+        action_attribution_windows=("7d_click", "1d_view")
+        )
     # i_weekly = facebook_insights_source(initial_load_past_days=1, time_increment_days=7)
     info = pipeline.run(i_daily)
     print(info)
 
 
 if __name__ == "__main__":
-    # load_all_ads_objects()
-    merge_ads_objects()
+    load_all_ads_objects()
     # load_ads_with_custom_fields()
     # load_only_disapproved_ads()
     # load_and_enrich_objects()

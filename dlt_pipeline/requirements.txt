@@ -1,2 +1,0 @@
-dlt[duckdb]>=0.5.1
-facebook-business>=16.0.2
