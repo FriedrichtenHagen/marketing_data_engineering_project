@@ -20,7 +20,12 @@ def load_all_ads_objects() -> None:
     fb_ads_source = facebook_ads_source(
         chunk_size=25,
     ).with_resources("campaigns", "ad_sets", "ads", "ad_creatives")
-    info = pipeline.run(fb_ads_source)
+    #.add_limit(5) # optionally limit number of yields
+    #.max_table_nesting=2 # optionally limit depth of nesting (may be useful for deeply nested creative infos)
+    info = pipeline.run(
+        fb_ads_source,
+        # write_disposition="replace" 
+        )
     print(info)
 
 
