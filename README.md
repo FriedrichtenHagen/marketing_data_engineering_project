@@ -5,6 +5,7 @@ dlt: data extraction
 
 - set the location of the pipeline meta files before running the pipeline
   - find the docs for that: https://dlthub.com/docs/general-usage/pipeline#:~:text=Each%20pipeline%20that%20you%20create%20with%20dlt%20stores%20extracted%20files%2C%20load%20packages%2C%20inferred%20schemas%2C%20execution%20traces%2C%20and%20the%20pipeline%20state%20in%20a%20folder%20in%20the%20local%20filesystem.%20The%20default%20location%20for%20such%20folders%20is%20in%20the%20user%27s%20home%20directory%3A%20~/.dlt/pipelines/%3Cpipeline_name%3E.
+- correct command: dlt pipeline --pipelines-dir ./ facebook_insights_pipeline show
 - make sure the duckdb files are in a folder
 - check your own pr for changes to the conversion filters (maybe try bind? )
 - handle api limits: https://stackoverflow.com/questions/34160992/fb-ads-api-17-user-request-limit-reached

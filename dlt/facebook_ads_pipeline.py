@@ -14,12 +14,12 @@ def load_all_ads_objects() -> None:
     pipeline = dlt.pipeline(
         pipeline_name="facebook_ads_pipeline",
         destination='duckdb',
-        dataset_name="facebook_ads_objects",
+        dataset_name="facebook_ads_objects_dataset",
     )
     # these are the dimensions of the facebook data model
     fb_ads_source = facebook_ads_source(
         chunk_size=25,
-    ).with_resources("campaigns", "ad_sets", "ads", "ad_creatives")
+    ).with_resources("campaigns", "ad_sets", "ads")
     #.add_limit(5) # optionally limit number of yields
     #.max_table_nesting=2 # optionally limit depth of nesting (may be useful for deeply nested creative infos)
     info = pipeline.run(
@@ -112,12 +112,14 @@ def load_insights() -> None:
     pipeline = dlt.pipeline(
         pipeline_name="facebook_insights_pipeline",
         destination='duckdb',
-        dataset_name="facebook_insights",
+        dataset_name="facebook_insights_dataset",
+        pipelines_dir="./", # this should save the pipeline state data in the current directory
+        progress="log"
     )
     # just load 1 past day with attribution window of 7 days - that will re-acquire last 8 days + today
     i_daily = facebook_insights_source(
         initial_load_past_days=1,
-        action_breakdowns="action_type", # check my pr for better implementation
+        action_breakdowns=("action_type",), # check my pr for better implementation
         action_attribution_windows=("7d_click", "1d_view")
         )
     # i_weekly = facebook_insights_source(initial_load_past_days=1, time_increment_days=7)
@@ -126,8 +128,8 @@ def load_insights() -> None:
 
 
 if __name__ == "__main__":
-    load_all_ads_objects()
+    # load_all_ads_objects()
     # load_ads_with_custom_fields()
     # load_only_disapproved_ads()
     # load_and_enrich_objects()
-    # load_insights()
+    load_insights()
