@@ -11,7 +11,7 @@ dlt: data extraction
 - handle api limits: https://stackoverflow.com/questions/34160992/fb-ads-api-17-user-request-limit-reached
 
 dbt: transformation
-
+Command to set the dbt profiles path: export DBT_PROFILES_DIR=/Users/friedrichtenhagen/coding/marketing_data_engineering_project/dbt/marketing_dwh
 cloud deployment
 - add settings for cloud deployment
 

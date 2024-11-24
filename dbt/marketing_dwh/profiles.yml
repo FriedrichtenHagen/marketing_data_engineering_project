@@ -1,0 +1,7 @@
+marketing_dwh:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: /Users/friedrichtenhagen/coding/marketing_data_engineering_project/dlt/facebook_insights_pipeline.duckdb
+      schema: dbt_transformations
