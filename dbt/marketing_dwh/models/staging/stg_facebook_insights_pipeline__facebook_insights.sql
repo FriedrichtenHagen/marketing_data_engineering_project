@@ -3,11 +3,11 @@ with source as (
 ),
 renamed as (
     select
-        {{ adapter.quote("campaign_id") }},
-        {{ adapter.quote("adset_id") }},
-        {{ adapter.quote("ad_id") }},
-        {{ adapter.quote("date_start") }},
-        {{ adapter.quote("date_stop") }},
+        CAST({{ adapter.quote("campaign_id") }} AS STRING) AS campaign_id,
+        CAST({{ adapter.quote("adset_id") }} AS STRING) AS adset_id,
+        CAST({{ adapter.quote("ad_id") }} AS STRING) AS ad_id,
+        CAST({{ adapter.quote("date_start") }} AS DATE) AS date_start,
+        -- {{ adapter.quote("date_stop") }},
         {{ adapter.quote("reach") }},
         {{ adapter.quote("impressions") }},
         {{ adapter.quote("frequency") }},
