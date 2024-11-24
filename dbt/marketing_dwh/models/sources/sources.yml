@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: facebook_insights_pipeline
+    schema: facebook_insights_dataset  # the schema where raw tables are located in duckdb
+    tables:
+      - name: facebook_insights  # name of the raw table you want to reference

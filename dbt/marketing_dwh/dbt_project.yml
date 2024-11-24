@@ -32,7 +32,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   marketing_dwh:
     +schema: dbt_transformations # specify the schema for all models (help seperate it from the dlt schema)
-    # Config indicated by + and applies to all files under models/example/
+    # Config indicated by + and applies to all files under models/example/    
     example:
       +materialized: view
 on-run-start:
