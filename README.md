@@ -1,4 +1,74 @@
 A data engineering proof of concept project. Goal is to enable elt for a marketing data warehouse using open source software.
+The extracted and transformed data is made available via fastAPI docker container.
+
+
+# Backend Setup Instructions
+
+## Prerequisites
+Before setting up the backend, ensure you have the following installed on your machine:
+
+- **Docker**: [Install Docker](https://docs.docker.com/get-docker/)
+- **Git**: [Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- **Python 3.9+** (optional for local development without Docker)
+- **VS Code** (optional, for easier development and managing files)
+
+## 1. Clone the Repository
+
+Clone the repository from GitHub to your local machine:
+
+```bash
+git clone <repository_url>
+cd <repository_name>
+```
+
+## 2. Set Up Docker (Recommended)
+
+The backend is containerized using Docker, which ensures you do not need Python or any dependencies installed locally. Follow these steps to run the backend in a Docker container.
+
+### Step 1: Build the Docker Image
+
+In the root of the repository, run the following command to build the Docker image:
+
+```bash
+docker build -t fastapi-backend .
+```
+
+### Step 2: Run the Docker Container
+
+Once the image is built, run the container:
+
+```bash
+docker run -d -p 8000:8000 --name fastapi-backend fastapi-backend
+```
+
+This will start the backend on port 8000, and you can access it at http://localhost:8000.
+
+If you want to stop the container, run:
+
+```bash
+docker stop fastapi-backend
+```
+
+To restart it:
+
+```bash
+docker start fastapi-backend
+```
+
+### Step 3: Verify the Backend
+
+You can now verify if the FastAPI backend is running correctly by visiting http://localhost:8000/data/mrt_facebook_insights in your browser. 
+Visit http://localhost:8000/docs in your browser to see the FastAPI documentation and your API endpoints listed.
+
+
+
+
+
+
+
+
+
+
 
 ## TODO
 dlt: data extraction
