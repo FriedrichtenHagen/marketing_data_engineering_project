@@ -72,7 +72,36 @@ joined AS (
     --     ON insights._dlt_id = insights__actions._dlt_parent_id        
 )
 
-SELECT * FROM joined
+, obfuscate_data AS (
+    SELECT
+       md5(account_id) AS account_id,
+       md5(campaign_id) AS campaign_id,
+       md5(adset_id) AS adset_id,
+       md5(ad_id) AS ad_id,
+       date_start,
+       reach,
+       impressions,
+       frequency,
+       clicks,
+       unique_clicks,
+       ctr,
+       unique_ctr,
+       cpc,
+       cpm,
+       cpp,
+       spend,
+       _dlt_load_id,
+       _dlt_id,
+        -- action values
+        _dlt_parent_id,
+        offsite_conversion_fb_pixel_purchase,
+        offsite_conversion_fb_pixel_initiate_checkout,
+        offsite_conversion_fb_pixel_add_to_cart,
+        offsite_conversion_fb_pixel_add_payment_info
+    FROM joined
+)
+
+SELECT * FROM obfuscate_data
 -- -- just for debugging
 -- WHERE CAST(date_start AS DATE) = '2024-11-23'
 -- AND ad_id = '120212261211530204'
